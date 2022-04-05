@@ -1,5 +1,5 @@
 <script>
-import StarIcon from "./StarIcon.vue";
+import StarIcon from "@/components/StarIcon.vue";
 
 export default {
   components: { StarIcon },

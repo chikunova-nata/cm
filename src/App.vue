@@ -1,17 +1,24 @@
 <template>
   <div id="app">
-    <h2>Non rounded start rating:{{rating}}</h2>
-    <star-rating :modelValue="rating" :round-start-rating="false"></star-rating>
     <div class="cm-container">
       <div class="cm-logo-wrapper">
         <img alt="Carb Manager" src="./assets/cm-logo.svg" class="cm-logo" />
       </div>
       <h2>Carb Manager Dev Assignment</h2>
-      <p>See the README file for assignment requirements.</p>
-
       <ul>
-        <li v-for="recipe in recipes" :key="recipe" class="premium-recipe">
-          <PremiumRecipeCard :id="recipe" />
+        <li v-for="recipe in recipes"
+            :key="recipe.id"
+            class="premium-recipe"
+        >
+          <PremiumRecipeCard :id="recipe.id"
+                             :title="recipe.title"
+                             :rating="recipe.rating"
+                             :preparationTimeMinutes="recipe.preparationTimeMinutes"
+                             :isPremium="recipe.isPremium"
+                             :images="recipe.images"
+                             :details="recipe.details"
+                             :user="user"
+          />
         </li>
       </ul>
     </div>
@@ -19,19 +26,30 @@
 </template>
 
 <script>
-import PremiumRecipeCard from "./components/PremiumRecipeCard.vue";
-import StarRating from "./components/StarRatings.vue";
+import PremiumRecipeCard from "@/components/PremiumRecipeCard.vue";
 
 export default {
   name: "App",
   components: {
-    PremiumRecipeCard,
-    StarRating
+    PremiumRecipeCard
+  },
+  created() {
+    this.fetchData()
   },
   data: () => ({
-    recipes: ["Premium", "recipes", "list", "goes", "here"],
+    recipes: [],
+    user: {},
     rating: 3.5
-  })
+  }),
+  methods: {
+    async fetchData() {
+      const url = "http://127.0.0.1:3000/";
+      this.recipes = await (await fetch(`${url}recipes`)).json();
+      this.user = await (await fetch(`${url}user`)).json();
+      console.log("__ this.commits", this.recipes)
+      console.log("__ this.user", this.user)
+    }
+  }
 };
 </script>
 

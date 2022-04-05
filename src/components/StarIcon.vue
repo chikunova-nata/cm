@@ -4,19 +4,19 @@ export default {
   props: {
     activeColor: {
       type: String,
-      required: false
+      required: true
     },
     inactiveColor: {
       type: String,
-      required: false
+      required: true
     },
     rating: {
       type: Number,
-      required: false
+      required: true
     },
     order: {
       type: Number,
-      required: false
+      required: true
     }
   },
   data() {
