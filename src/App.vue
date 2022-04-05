@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <h2>Non rounded start rating:{{rating}}</h2>
+    <star-rating :modelValue="rating" :round-start-rating="false"></star-rating>
     <div class="cm-container">
       <div class="cm-logo-wrapper">
         <img alt="Carb Manager" src="./assets/cm-logo.svg" class="cm-logo" />
@@ -18,16 +20,17 @@
 
 <script>
 import PremiumRecipeCard from "./components/PremiumRecipeCard.vue";
+import StarRating from "./components/StarRatings.vue";
 
 export default {
   name: "App",
-
   components: {
-    PremiumRecipeCard
+    PremiumRecipeCard,
+    StarRating
   },
-
   data: () => ({
-    recipes: ["Premium", "recipes", "list", "goes", "here"]
+    recipes: ["Premium", "recipes", "list", "goes", "here"],
+    rating: 3.5
   })
 };
 </script>
