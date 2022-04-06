@@ -46,8 +46,6 @@ export default {
       const url = "http://127.0.0.1:3000/";
       this.recipes = await (await fetch(`${url}recipes`)).json();
       this.user = await (await fetch(`${url}user`)).json();
-      console.log("__ this.commits", this.recipes)
-      console.log("__ this.user", this.user)
     }
   }
 };
@@ -79,11 +77,10 @@ export default {
   margin: auto;
 }
 
-/** Remove these styles when done */
-.premium-recipe {
-  margin-top: 24px;
-  border: 2px dashed red;
-  padding: 16px;
+ul {
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
+
 </style>

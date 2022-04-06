@@ -1,6 +1,5 @@
 import {mount} from '@vue/test-utils';
 import PremiumRecipeCard from "@/components/PremiumRecipeCard";
-import StarRating from "@/components/StarRatings";
 
 describe("PremiumRecipeCard.vue", () => {
   const defaultProps = {
@@ -30,7 +29,8 @@ describe("PremiumRecipeCard.vue", () => {
       }
     },
     user: {
-      energyUnits: "calories"
+      energyUnits: "calories",
+      likedRecipes: ["2", "3"]
     }
   };
   let wrapper = null;
@@ -70,5 +70,32 @@ describe("PremiumRecipeCard.vue", () => {
     });
     const props = wrapper.props();
     expect(wrapper.vm.setMinutes(props.preparationTimeMinutes)).toEqual(`${lessThan60Minutes} min`);
+  });
+
+  it("should set isIconHighlighted based on user preferences", () => {
+    const nonFavoriteRecipeId = "1";
+    const favoriteRecipeId = "2";
+    expect(wrapper.vm.isIconHighlighted(nonFavoriteRecipeId)).toBeFalsy();
+    expect(wrapper.vm.isIconHighlighted(favoriteRecipeId)).toBeTruthy();
+  });
+
+  it("should convert energy if energy units are the same", () => {
+    const unitsEnergy = "kcal";
+    expect(wrapper.vm.convertEnergyUnits(unitsEnergy)).toEqual(defaultProps.details.energy);
+  });
+
+  it("should convert kJ to cal based on user preferences", () => {
+    const unitsEnergyKJ = "kJ";
+    expect(wrapper.vm.convertEnergyUnits(unitsEnergyKJ)).toEqual("101");
+  });
+
+  it("should convert cal to kJ based on user preferences", () => {
+    defaultProps.user.energyUnits = "kJ";
+    wrapper = mount(PremiumRecipeCard, {
+      propsData: { ...defaultProps }
+    });
+
+    const unitsEnergyKcal = "kcal";
+    expect(wrapper.vm.convertEnergyUnits(unitsEnergyKcal)).toEqual("1761");
   });
 });

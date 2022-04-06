@@ -15,7 +15,7 @@ export default {
     },
     starSize: {
       type: String,
-      default: "24"
+      default: "12"
     },
     numberOfStars: {
       type: Number,
@@ -46,34 +46,25 @@ export default {
 </script>
 
 <template>
-  <div class="star-rating__wrapper">
-    <div class="star-rating">
-      <div class="stars">
-        <star-icon
-          :activeColor="activeColor"
-          :inactiveColor="inactiveColor"
-          :order="i"
-          :rating="rating"
-          v-for="i in numberOfStars"
-          :key="i"
-          :style="{
+  <div class="star-rating">
+    <div class="stars">
+      <star-icon
+        :activeColor="activeColor"
+        :inactiveColor="inactiveColor"
+        :order="i"
+        :rating="rating"
+        v-for="i in numberOfStars"
+        :key="i"
+        :style="{
               ...generateSameWidthAndHeight(starSize)
             }"
-        >
-        </star-icon>
-      </div>
+      >
+      </star-icon>
     </div>
   </div>
 </template>
 
 <style scoped>
-.star-rating__wrapper {
-  display: block;
-  margin: 25px auto;
-  text-align: center;
-  padding: 25px;
-}
-
 .star-rating {
   display: flex;
   justify-content: space-between;
